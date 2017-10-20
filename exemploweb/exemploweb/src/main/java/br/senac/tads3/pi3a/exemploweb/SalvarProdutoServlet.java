@@ -12,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,7 +34,18 @@ public class SalvarProdutoServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	  throws ServletException, IOException {
-    RequestDispatcher dispatcher = request.getRequestDispatcher("formulario.jsp");
+    HttpSession sessao = request.getSession();
+    Produto p = (Produto) sessao.getAttribute("novoProd");
+    String destino;
+    if (p != null) { // usuario veio do redirecionamento
+      request.setAttribute("novoProd", p);
+      sessao.removeAttribute("novoProd");
+      destino = "resposta.jsp";
+    } else { // usuario acessou normalmente
+      destino = "formulario.jsp";
+    }
+    RequestDispatcher dispatcher = 
+	    request.getRequestDispatcher(destino);
     dispatcher.forward(request, response);
   }
 
@@ -57,11 +69,11 @@ public class SalvarProdutoServlet extends HttpServlet {
     Produto p = new Produto(nome, descricao,
 	    new BigDecimal(vlCompra), new BigDecimal(vlVenda),
 	    categorias[0], new Date());
-    request.setAttribute("novoProd", p);
-
-    RequestDispatcher dispatcher = request.getRequestDispatcher("resposta.jsp");
-    dispatcher.forward(request, response);
-
+    
+    HttpSession sessao = request.getSession();
+    sessao.setAttribute("novoProd", p);
+    
+    response.sendRedirect(request.getContextPath() + "/cadastro-produto");
   }
 
 }
