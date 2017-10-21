@@ -36,7 +36,7 @@ public class UsuarioService {
     UsuarioSistema usuario = USUARIOS_CADASTRADOS.get(username);
     if (usuario != null) {
       // 2) Verifica se senha esta correta
-      if (senha != null && senha.equals(usuario.getHashSenha())) {
+      if (senha != null && usuario.verificarSenha(senha)) {
 	return usuario;
       }
     }

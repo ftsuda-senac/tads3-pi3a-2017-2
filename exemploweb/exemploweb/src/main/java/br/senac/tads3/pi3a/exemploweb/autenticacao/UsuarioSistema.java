@@ -6,35 +6,36 @@
 package br.senac.tads3.pi3a.exemploweb.autenticacao;
 
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
  * @author fernando.tsuda
  */
-public class UsuarioSistema {
-  
+public final class UsuarioSistema {
+
   private String nomeCompleto;
-  
+
   private String username;
-  
+
   private String hashSenha;
-  
+
   private List<String> papeis;
-  
+
   public UsuarioSistema() {
-    
+
   }
 
   public UsuarioSistema(String nomeCompleto, String username, String senha) {
     this.nomeCompleto = nomeCompleto;
     this.username = username;
-    this.hashSenha = senha;
+    setSenha(senha);
   }
 
   public UsuarioSistema(String nomeCompleto, String username, String senha, List<String> papeis) {
     this.nomeCompleto = nomeCompleto;
     this.username = username;
-    this.hashSenha = senha;
+    setSenha(senha);
     this.papeis = papeis;
   }
 
@@ -62,6 +63,10 @@ public class UsuarioSistema {
     this.hashSenha = hashSenha;
   }
 
+  public void setSenha(String senhaAberta) {
+    this.hashSenha = BCrypt.hashpw(senhaAberta, BCrypt.gensalt());
+  }
+
   public List<String> getPapeis() {
     return papeis;
   }
@@ -70,6 +75,10 @@ public class UsuarioSistema {
     this.papeis = papeis;
   }
   
+  public boolean verificarSenha(String senhaAberta) {
+    return BCrypt.checkpw(senhaAberta, hashSenha);
+  }
+
   public boolean temPapel(String papel) {
     return papeis.contains(papel);
   }
