@@ -10,23 +10,25 @@
     <div>
       <h1>Entrar no sistema</h1>
       <c:if test="${not empty msgErro}">
-	<h2><c:out value="${msgErro}" /></h2>
+        <h2><c:out value="${msgErro}" /></h2>
+      </c:if>
+      <c:if test="${not empty msgLogout}">
+        <h2><c:out value="${msgLogout}" /></h2>
       </c:if>
       <form action="${pageContext.request.contextPath}/login" method="post">
-	<div>
-	  <label for="txtusername">Nome de usuário</label>
-	  <input type="text" id="txtusername" name="username" />
-	</div>
-	<div>
-	  <label for="txtsenha">Senha</label>
-	  <input type="password" id="txtsenha" name="senha" />
-	</div>
-	<div>
-	  <button type="submit">Enviar</button>
-	</div>
-	
+        <div>
+          <label for="txtusername">Nome de usuário</label>
+          <input type="text" id="txtusername" name="username" />
+        </div>
+        <div>
+          <label for="txtsenha">Senha</label>
+          <input type="password" id="txtsenha" name="senha" />
+        </div>
+        <div>
+          <button type="submit">Enviar</button>
+        </div>
       </form>
-      
+
     </div>
     <h1></h1>
   </body>
