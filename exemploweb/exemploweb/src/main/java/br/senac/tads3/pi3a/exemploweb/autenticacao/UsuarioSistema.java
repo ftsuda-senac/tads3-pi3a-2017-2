@@ -5,6 +5,8 @@
  */
 package br.senac.tads3.pi3a.exemploweb.autenticacao;
 
+import java.util.List;
+
 /**
  *
  * @author fernando.tsuda
@@ -17,6 +19,8 @@ public class UsuarioSistema {
   
   private String hashSenha;
   
+  private List<String> papeis;
+  
   public UsuarioSistema() {
     
   }
@@ -25,6 +29,13 @@ public class UsuarioSistema {
     this.nomeCompleto = nomeCompleto;
     this.username = username;
     this.hashSenha = senha;
+  }
+
+  public UsuarioSistema(String nomeCompleto, String username, String senha, List<String> papeis) {
+    this.nomeCompleto = nomeCompleto;
+    this.username = username;
+    this.hashSenha = senha;
+    this.papeis = papeis;
   }
 
   public String getNomeCompleto() {
@@ -50,5 +61,16 @@ public class UsuarioSistema {
   public void setHashSenha(String hashSenha) {
     this.hashSenha = hashSenha;
   }
+
+  public List<String> getPapeis() {
+    return papeis;
+  }
+
+  public void setPapeis(List<String> papeis) {
+    this.papeis = papeis;
+  }
   
+  public boolean temPapel(String papel) {
+    return papeis.contains(papel);
+  }
 }
