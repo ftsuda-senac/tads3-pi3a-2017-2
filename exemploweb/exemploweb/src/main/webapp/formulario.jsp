@@ -1,12 +1,7 @@
-<%-- 
-    Document   : formulario
-    Created on : 06/10/2017, 22:05:14
-    Author     : fernando.tsuda
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
+
 <html>
   <head>
     <title>TODO supply a title</title>
@@ -14,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <c:import url="/WEB-INF/jsp/cabecalho.jsp" />
     <h1>Formulário produto</h1>
     <div>
       <form action="${pageContext.request.contextPath}/cadastro-produto" method="post">
